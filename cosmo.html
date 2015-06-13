@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html lang = "en-US">
+<head>
+    <meta charset = "UTF-8">
+    <title>cosmo</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type = "text/javascript">
+        var infotoggle = document.getElementById("infotoggle");
+            $(document).ready(function() {
+                $("p").hide();
+                $("#infotoggle").click(function() {
+                   $("p").toggle(1000); 
+                });
+            });
+        function calc() {
+            smartremark();
+            var output = document.getElementById("output");
+            var equInput = document.getElementById("equInput");
+            var inputequ = equInput.value;
+            var equ = equInput.value;
+            
+            equ = equ.replace("divided by", "/");
+            equ = equ.replace("x", "*");
+            equ = equ.replace("plus", "+");
+            equ = equ.replace("minus", "-");
+            equ = equ.replace("times", "*");
+            equ = equ.replace("square root of", "%");
+            equ = equ.replace("to the power of", ",");
+            equ = equ.replace(/\s/g, "");
+            equ = equ.replace("^", ",");
+            equ = equ.replace("sqrt", "%")
+            sqrttest = equ.indexOf("%");
+            powertest = equ.indexOf(",");
+            if (powertest != -1) {
+                var lastbitpow = powertest + 1;
+                var length = parseInt(equ.length);
+                var firstbit = equ.substr(0, powertest);
+                var lastbit = equ.substr(lastbitpow, length);
+                var lfloat = parseFloat(lastbit);
+                var ffloat = parseFloat(firstbit);
+                var equlook = equ.value;
+                var poweredEqu = Math.pow(ffloat, lfloat);
+                output.innerHTML = inputequ + " = " + poweredEqu;
+            }
+            else if (sqrttest != -1) {
+                var length = equ.length;
+                var sqrtfinder = sqrttest + 1;
+                var sqrtbit = equ.substr(sqrtfinder, length);
+                var sqrtfloat = parseFloat(sqrtbit);
+                var sqrtEqu = Math.sqrt(sqrtfloat);
+                output.innerHTML = inputequ + " = " + sqrtEqu;
+            }
+            else {
+            
+            var equAnswer = eval(equ);
+            output.innerHTML = inputequ + " = " + equAnswer;
+            }
+        }
+        function smartremark() {
+            var smartremark = document.getElementById("smartremark");
+            var random = Math.random();
+            var random3 = random * 12;
+            var random2 = Math.round(random3);
+            
+            if (random2 == 1) {
+                smartremark.innerHTML = "<h5>cosmo likes chocolate. |</h5>";
+            }
+            else if (random2 == 2) {
+                smartremark.innerHTML = "<h5>cosmo likes to swim. |</h5>";
+            }
+            else if (random2 == 3) {
+                smartremark.innerHTML = "<h5>cosmo has learnt to double jump. |</h5>";
+            }
+            else if (random2 == 4) {
+                smartremark.innerHTML = "<h5>cosmo has gravity-bending business to do. |</h5>";
+            }
+            else if (random2 == 5) {
+                smartremark.innerHTML = "<h5>cosmo is named after the drink called a cosmopolitan. |</h5>";
+            }
+            else if (random2 == 6) {
+                smartremark.innerHTML = "<h5>i was almost named cosmo. |</h5>";
+            }
+            else if (random2 == 7) {
+                smartremark.innerHTML = "<h5>cosmo is breaking the laws of physics. |</h5>";
+            }
+            else if (random2 == 8) {
+                smartremark.innerHTML = "<h5>cosmo wears sunglasses. |</h5>";
+            }
+            else if (random2 == 9) {
+                smartremark.innerHTML = "<h5>cosmo takes the saying bounce off the walls to a new level. |</h5>"
+            }
+            else if (random2 == 10) {
+                smartremark.innerHTML = "<h5>today is cosmo day! |</h5>"
+            }
+            else if (random2 == 12) {
+                smartremark.innerHTML = "<h5>cosmo is agile. |</h5>"
+            }
+            else if (random2 == 11) {
+                smartremark.innerHTML = "<h5>cosmo has been elected for leader of jumping across rooftops. |</h5>"
+            }
+            else {
+                smartremark.innerHTML = "<h5>cosmo thinks you are boring, but he can tolerate your existence. |</h5>";
+            }
+        }
+    </script>
+    <link rel = "stylesheet"
+          type = "text/css"
+          href = "cosmo.css"/>
+</head>
+
+<body onload = "smartremark()">
+    <div id = "title">
+        <img src = "cosmosquare.png" alt = "cosmo." style="width: 23px; height: 23px;">
+    <h1>cosmo.</h1>
+    </div>
+    <div id = "bottominfo">
+    <h5>programmed by blake bain. |</h5>
+    <a href = "http://steamcommunity.com/id/blakebain1/">steam account</a>
+    <h5>|</h5>
+    <a href = "http://youtube.com/channel/UC-yuk3-FNDEkkKIQ_a-LS-w">youtube channel</a>
+    <h5>|</h5>
+    <a href = "http://stackoverflow.com/users/4907682/nachozombie">stack overflow account</a>
+    <h5>|</h5>
+    <a href = "https://github.com/blakenachozombie">github account</a>
+    <h5>|</h5>
+    <h5>if you create a large equation, infinity may be your answer. |</h5>
+    <div id = "smartremark"><h5></h5></div>
+    </div>
+    <div style="clear: none;"></div>
+<form>
+    <fieldset>
+        <label for = "equInput"></label>
+        <input type = "text"
+               id = "equInput"/>
+        <button onclick = "calc()"
+                type = "button">
+            calculate
+        </button>
+        <button id = "infotoggle"
+                type = "button"
+                onclick = "info()">
+            info
+        </button>
+        <div id = "output"></div>
+    </fieldset>
+</form>
+<div id = "info">
+<p>This is a calculator. Use it wisely.</p>
+<p>Press Enter to calculate the equation, or just press the button</p>
+<p>For Square Roots, use "sqrt" or "square root of".</p>
+<p>For Powers, use "^", or "to the power of".</p>
+<p>For Addition, use "+" or "plus"</p>
+<p>For Subtraction, use "-" or "minus"</p>
+<p>For Division, use "divided by", or "/"</p>
+<p>For Multiplication, use "x", "*", or "times"</p>
+<p>Negative Powers and Square Roots are not accepted.</p>
+<p>This program was not built for Multi-Step Equations.</p>
+<p>Multi-Step Equations can only be done with addition, subtraction, multiplication, and division.</p>
+</div>
+</body>
+<script type = "text/javascript">
+        document.getElementById("equInput").onkeypress = function(e) {
+            if (!e) e = window.event;
+            var keyCode = e.keyCode || e.which;
+            if (keyCode == '13') {
+                calc();
+                return false;
+            }
+        }
+</script>
+</html>
